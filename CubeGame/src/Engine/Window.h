@@ -3,6 +3,11 @@
 #include <GLFW/glfw3.h>
 
 #include <string>
+#include <vector>
+#include <functional>
+#include <memory>
+
+#include "Scene.h"
 
 namespace Engine {
 
@@ -16,6 +21,7 @@ namespace Engine {
 
 	private:
 		GLFWwindow* window = nullptr;
+		std::unique_ptr<Game::Scene> m_Scene;
 	};
 
 }
