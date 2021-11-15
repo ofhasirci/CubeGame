@@ -12,4 +12,4 @@ Main structure is set up. In the project I am using:
 
 I will be share the development process in here. For now main structure is set and a cube was drawn as:
 
-![Cube](.\images\Cube.png)
+![Cube](https://github.com/ofhasirci/CubeGame/blob/master/images/Cube.png)
