@@ -10,6 +10,6 @@ Main structure is set up. In the project I am using:
 - GLM
 - Visual Studio 2019
 
-I will be share the development process in here. For now main structure is set and a cube was drawn as:
+I will be share the development process in here.
 
-![Cube](https://github.com/ofhasirci/CubeGame/blob/master/images/rotation.gif)
+![Cube](https://github.com/ofhasirci/CubeGame/blob/master/images/rotation2.gif)

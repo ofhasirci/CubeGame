@@ -23,16 +23,26 @@ namespace Game {
 
 		Engine::Renderer renderer;
 
-		glm::mat4 model = glm::mat4(1.0f);
-		int rotationIndex = 0;
-		float angles[3] = { 0.0f, 0.0f, 0.0f };
-		glm::vec3 axis = glm::vec3(1.0f, 0.0f, 0.0f);
+		glm::mat4 view = glm::mat4(1.0f);
+		int viewRotationIndex = 0;
+		float viewAngles[3] = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 viewAxis = glm::vec3(1.0f, 0.0f, 0.0f);
 
-		glm::vec3 cubePositions[4] = {
-			glm::vec3(-1.2f, -1.0f, 0.0f),
-			glm::vec3( 0.0f, -1.0f, 0.0f),
-			glm::vec3( 0.0f,  0.2f, 0.0f),
-			glm::vec3(-1.2f,  0.2f, 0.0f)
+		glm::mat4 model = glm::mat4(1.0f);
+		int modelRotationIndex = 0;
+		float modelAngles[3] = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 modelAxis = glm::vec3(1.0f, 0.0f, 0.0f);
+
+		glm::vec3 cubePositions[8] = {
+			glm::vec3(-0.7f, -0.5f, -0.2f),
+			glm::vec3( 0.5f, -0.5f, -0.2f),
+			glm::vec3( 0.5f,  0.7f, -0.2f),
+			glm::vec3(-0.7f,  0.7f, -0.2f),
+
+			glm::vec3(-0.7f, -0.5f, 1.0f),
+			glm::vec3( 0.5f, -0.5f, 1.0f),
+			glm::vec3( 0.5f,  0.7f, 1.0f),
+			glm::vec3(-0.7f,  0.7f, 1.0f)
 		};
 	public:
 		Scene() {}

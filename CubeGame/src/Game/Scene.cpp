@@ -87,6 +87,10 @@ namespace Game {
 		m_IndexBuffer = std::make_unique<Engine::IndexBuffer>(6 * 6, indices, GL_STATIC_DRAW);
 
 		m_Shader = std::make_unique<Engine::Shader>("res/shaders/ShaderVertex.glsl", "res/shaders/ShaderFragment.glsl");
+
+		view = glm::translate(glm::mat4(1.f), glm::vec3(0.0f, 0.0f, -15.0f));
+		view = glm::rotate(view, glm::radians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		view = glm::rotate(view, glm::radians(20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 
 	Scene::~Scene()
@@ -104,16 +108,14 @@ namespace Game {
 
 		// 960, 540
 		glm::mat4 proj = glm::perspective(glm::radians(45.0f), 960.0f / 540.0f, 0.1f, 100.0f);
-		glm::mat4 view = glm::translate(glm::mat4(1.f), glm::vec3(0.0f, 0.0f, -15.0f));
-		view = glm::rotate(view, glm::radians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		view = glm::rotate(view, glm::radians(20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glm::mat4 m_view = glm::rotate(view, glm::radians(viewAngles[viewRotationIndex]), viewAxis);
 
-		for (size_t i = 0; i < 4; i++)
+		for (size_t i = 0; i < 8; i++)
 		{
 			model = glm::mat4(1.0f);
 			model = glm::translate(model, cubePositions[i]);
-			model = glm::rotate(model, angles[rotationIndex], axis);
-			glm::mat4 mvp = proj * view * model;
+			model = glm::rotate(model, glm::radians(modelAngles[modelRotationIndex]), modelAxis);
+			glm::mat4 mvp = proj * m_view * model;
 
 			m_Shader->Bind();
 			m_Shader->SetUniformMatrix4f("u_MVP", mvp);
@@ -127,22 +129,43 @@ namespace Game {
 		ImGui::Begin("Cube Control");
 
 		ImGui::Text("Cube Rotation");
-		if (ImGui::DragFloat("X", &angles[0], 0.1f, -10.5f, 10.5f))
+		if (ImGui::DragFloat("Model X", &modelAngles[0], 0.1f, -180.0f, 180.f))
 		{
-			rotationIndex = 0;
-			axis = glm::vec3(1.0f, 0.0f, 0.0f);
+			modelRotationIndex = 0;
+			modelAxis = glm::vec3(1.0f, 0.0f, 0.0f);
 		}
 
-		if (ImGui::DragFloat("Y", &angles[1], 0.1f, -10.5f, 10.5f))
+		if (ImGui::DragFloat("Model Y", &modelAngles[1], 0.1f, -180.0f, 180.f))
 		{
-			rotationIndex = 1;
-			axis = glm::vec3(0.0f, 1.0f, 0.0f);
+			modelRotationIndex = 1;
+			modelAxis = glm::vec3(0.0f, 1.0f, 0.0f);
 		}
 
-		if (ImGui::DragFloat("Z", &angles[2], 0.1f, -10.5f, 10.5f))
+		if (ImGui::DragFloat("Model Z", &modelAngles[2], 0.1f, -180.0f, 180.f))
 		{
-			rotationIndex = 2;
-			axis = glm::vec3(0.0f, 0.0f, 1.0f);
+			modelRotationIndex = 2;
+			modelAxis = glm::vec3(0.0f, 0.0f, 1.0f);
+		}
+
+		ImGui::Spacing();
+
+		ImGui::Text("View Rotation");
+		if (ImGui::DragFloat("View X", &viewAngles[0], 0.1f, -180.0f, 180.f))
+		{
+			viewRotationIndex = 0;
+			viewAxis = glm::vec3(1.0f, 0.0f, 0.0f);
+		}
+
+		if (ImGui::DragFloat("View Y", &viewAngles[1], 0.1f, -180.0f, 180.f))
+		{
+			viewRotationIndex = 1;
+			viewAxis = glm::vec3(0.0f, 1.0f, 0.0f);
+		}
+
+		if (ImGui::DragFloat("View Z", &viewAngles[2], 0.1f, -180.0f, 180.f))
+		{
+			viewRotationIndex = 2;
+			viewAxis = glm::vec3(0.0f, 0.0f, 1.0f);
 		}
 
 		ImGui::End();
