@@ -2,9 +2,9 @@
 
 #include "GLBullet.h"
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
 #include "imgui/imgui.h"
+
+#include <iostream>
 
 namespace Game {
 	Scene::Scene(const std::string& sceneName)
@@ -104,8 +104,8 @@ namespace Game {
 
 		// 960, 540
 		glm::mat4 proj = glm::perspective(glm::radians(45.0f), 960.0f / 540.0f, 0.1f, 100.0f);
-		glm::mat4 view = glm::translate(glm::mat4(1.f), glm::vec3(0.0f, 0.0f, -5.0f));
-		glm::mat4 model = glm::rotate(glm::mat4(1.0f), angle, glm::vec3((float)axis[0], (float)axis[1], (float)axis[2]));
+		glm::mat4 view = glm::translate(glm::mat4(1.f), glm::vec3(0.0f, 0.0f, -10.0f));
+		model = glm::rotate(model, angles[rotationIndex], axis);
 		glm::mat4 mvp = proj * view * model;
 
 		m_Shader->Bind();
@@ -117,10 +117,26 @@ namespace Game {
 	void Scene::OnImGuiRender()
 	{
 		ImGui::Begin("Cube Control");
-		ImGui::Checkbox("X", &axis[0]); ImGui::SameLine();
-		ImGui::Checkbox("Y", &axis[1]); ImGui::SameLine();
-		ImGui::Checkbox("Z", &axis[2]); ImGui::SameLine();
-		ImGui::SliderAngle("Rotate", &angle);
+		ImGui::Text("Rotation");
+
+		if (ImGui::DragFloat("X", &angles[0], 0.001f, -0.5f, 0.5f))
+		{
+			rotationIndex = 0;
+			axis = glm::vec3(1.0f, 0.0f, 0.0f);
+		}
+
+		if (ImGui::DragFloat("Y", &angles[1], 0.001f, -0.5f, 0.5f))
+		{
+			rotationIndex = 1;
+			axis = glm::vec3(0.0f, 1.0f, 0.0f);
+		}
+
+		if (ImGui::DragFloat("Z", &angles[2], 0.001f, -0.5f, 0.5f))
+		{
+			rotationIndex = 2;
+			axis = glm::vec3(0.0f, 0.0f, 1.0f);
+		}
+
 		ImGui::End();
 	}
 }

@@ -8,6 +8,8 @@
 #include "Shader.h"
 #include "Renderer.h"
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 namespace Game {
 	class Scene
@@ -20,8 +22,10 @@ namespace Game {
 		std::unique_ptr<Engine::Shader> m_Shader;
 
 		Engine::Renderer renderer;
-		float angle = 0.0f;
-		bool axis[3] = { true, false, false };
+		glm::mat4 model = glm::mat4(1.0f);
+		int rotationIndex = 0;
+		float angles[3] = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 axis = glm::vec3(1.0f, 0.0f, 0.0f);
 	public:
 		Scene() {}
 		Scene(const std::string& sceneName);
