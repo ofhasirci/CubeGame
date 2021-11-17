@@ -22,10 +22,18 @@ namespace Game {
 		std::unique_ptr<Engine::Shader> m_Shader;
 
 		Engine::Renderer renderer;
+
 		glm::mat4 model = glm::mat4(1.0f);
 		int rotationIndex = 0;
 		float angles[3] = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 axis = glm::vec3(1.0f, 0.0f, 0.0f);
+
+		glm::vec3 cubePositions[4] = {
+			glm::vec3(-1.2f, -1.0f, 0.0f),
+			glm::vec3( 0.0f, -1.0f, 0.0f),
+			glm::vec3( 0.0f,  0.2f, 0.0f),
+			glm::vec3(-1.2f,  0.2f, 0.0f)
+		};
 	public:
 		Scene() {}
 		Scene(const std::string& sceneName);

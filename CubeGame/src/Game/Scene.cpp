@@ -104,34 +104,42 @@ namespace Game {
 
 		// 960, 540
 		glm::mat4 proj = glm::perspective(glm::radians(45.0f), 960.0f / 540.0f, 0.1f, 100.0f);
-		glm::mat4 view = glm::translate(glm::mat4(1.f), glm::vec3(0.0f, 0.0f, -10.0f));
-		model = glm::rotate(model, angles[rotationIndex], axis);
-		glm::mat4 mvp = proj * view * model;
+		glm::mat4 view = glm::translate(glm::mat4(1.f), glm::vec3(0.0f, 0.0f, -15.0f));
+		view = glm::rotate(view, glm::radians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		view = glm::rotate(view, glm::radians(20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-		m_Shader->Bind();
-		m_Shader->SetUniformMatrix4f("u_MVP", mvp);
-		
-		renderer.Draw(*m_VA, *m_IndexBuffer, *m_Shader);
+		for (size_t i = 0; i < 4; i++)
+		{
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[i]);
+			model = glm::rotate(model, angles[rotationIndex], axis);
+			glm::mat4 mvp = proj * view * model;
+
+			m_Shader->Bind();
+			m_Shader->SetUniformMatrix4f("u_MVP", mvp);
+
+			renderer.Draw(*m_VA, *m_IndexBuffer, *m_Shader);
+		}
 	}
 
 	void Scene::OnImGuiRender()
 	{
 		ImGui::Begin("Cube Control");
-		ImGui::Text("Rotation");
 
-		if (ImGui::DragFloat("X", &angles[0], 0.001f, -0.5f, 0.5f))
+		ImGui::Text("Cube Rotation");
+		if (ImGui::DragFloat("X", &angles[0], 0.1f, -10.5f, 10.5f))
 		{
 			rotationIndex = 0;
 			axis = glm::vec3(1.0f, 0.0f, 0.0f);
 		}
 
-		if (ImGui::DragFloat("Y", &angles[1], 0.001f, -0.5f, 0.5f))
+		if (ImGui::DragFloat("Y", &angles[1], 0.1f, -10.5f, 10.5f))
 		{
 			rotationIndex = 1;
 			axis = glm::vec3(0.0f, 1.0f, 0.0f);
 		}
 
-		if (ImGui::DragFloat("Z", &angles[2], 0.001f, -0.5f, 0.5f))
+		if (ImGui::DragFloat("Z", &angles[2], 0.1f, -10.5f, 10.5f))
 		{
 			rotationIndex = 2;
 			axis = glm::vec3(0.0f, 0.0f, 1.0f);
