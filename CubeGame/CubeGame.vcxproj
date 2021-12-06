@@ -154,6 +154,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Engine\Common\Contols.cpp" />
+    <ClCompile Include="src\Engine\Common\Controls.cpp" />
     <ClCompile Include="src\Engine\IndexBuffer.cpp" />
     <ClCompile Include="src\Engine\Renderer.cpp" />
     <ClCompile Include="src\Engine\Shader.cpp" />
@@ -171,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\BaseBuffer.h" />
+    <ClInclude Include="src\Engine\Common\Controls.h" />
     <ClInclude Include="src\Engine\GLBullet.h" />
     <ClInclude Include="src\Engine\IndexBuffer.h" />
     <ClInclude Include="src\Engine\Renderer.h" />

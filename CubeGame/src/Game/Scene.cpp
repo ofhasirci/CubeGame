@@ -99,23 +99,24 @@ namespace Game {
 
 	void Scene::OnUpdate(float deltaTime)
 	{
+
 	}
 
-	void Scene::OnRender()
+	void Scene::OnRender(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix)
 	{
 		renderer.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		renderer.EnableDepthTest();
 
 		// 960, 540
-		glm::mat4 proj = glm::perspective(glm::radians(45.0f), 960.0f / 540.0f, 0.1f, 100.0f);
-		glm::mat4 m_view = glm::rotate(view, glm::radians(viewAngles[viewRotationIndex]), viewAxis);
+		/*glm::mat4 proj = glm::perspective(glm::radians(45.0f), 960.0f / 540.0f, 0.1f, 100.0f);
+		glm::mat4 m_view = glm::rotate(view, glm::radians(viewAngles[viewRotationIndex]), viewAxis);*/
 
 		for (size_t i = 0; i < 8; i++)
 		{
 			model = glm::mat4(1.0f);
 			model = glm::translate(model, cubePositions[i]);
 			model = glm::rotate(model, glm::radians(modelAngles[modelRotationIndex]), modelAxis);
-			glm::mat4 mvp = proj * m_view * model;
+			glm::mat4 mvp = projectionMatrix * viewMatrix * model;
 
 			m_Shader->Bind();
 			m_Shader->SetUniformMatrix4f("u_MVP", mvp);

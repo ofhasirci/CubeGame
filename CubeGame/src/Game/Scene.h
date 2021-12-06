@@ -50,7 +50,7 @@ namespace Game {
 		~Scene();
 
 		virtual void OnUpdate(float deltaTime);
-		virtual void OnRender();
+		virtual void OnRender(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix);
 		virtual void OnImGuiRender();
 
 		std::string GetSceneName() const { return m_SceneName; }
